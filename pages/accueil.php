@@ -24,24 +24,32 @@ if(isset($_SESSION['email'])){
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
    
-    <title>liste professeurs </title>
+    <title>Page d'accueil </title>
 </head>
 
 <body>
-    <!--navbar sur toute les pages-->
-<header>
-        <?php
-        require_once "navbar.php";
-        ?>
-</header>
-    
-   
+
+<div class="row justify-content-center">
+
+    <div class="card text-center" style="width: 22rem;">
+        <img src="../img/george.png" class="card-img-top" alt="imageAccueil">
+       
+    </div>
+</div>
+
+<div class="card-body m-5 text-center">
+       
+            <a class="p-3 mb-2 bg-primary text-white" href="administrateurs.php">Page Administrateurs</a>
+            <a class="p-3 mb-2 bg-secondary text-white" href="prof.php">Page des Enseignants</a>
+            <a class="p-3 mb-2 bg-info text-white" href="eleve.php">Page des Eléves</a>
+</div>
+
     <!--créer le bouton de deconnexion -->
     <div class="btn-deconect">
         <form method="post" >
             <button class=" btn btn-info" name="btn-deconnexion" >Deconnexion</button>
 
-            <a href="administrateurs.php" class=" btn btn-primary"> administrateurs</a>
+           
         </form>
         
     </div>
@@ -72,83 +80,14 @@ if(isset($_SESSION['email'])){
     // faire le Debug de pdo
               
             $baseDonnee1->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            echo "<h4 class='container alert alert-info text-center'>Connexion réussis a PDO MySQL</h4>";
+           // echo "<h4 class='container alert alert-info text-center'>Connexion réussis a PDO MySQL</h4>";
 
             } catch (PDOException $e) {
                 print "ERREUR !: " . $e->getMessage() . "<br>";
                 die();
             }
 
-    // faire la condition
 
-        if($baseDonnee1){
-
-     //Requète SQL de selection des produits (de tout les produits)
-             $sql = "SELECT * FROM professeurs";
-    // accèder à la methode query() grace à sql
-               
-            $affich = $baseDonnee1->query($sql);
-            }
-
-            ?>
-    <!--container pour les produit-->
-    <div class="container">
-
-            <a href="ajoutProduit.php" class="mt-3 btn btn-info">Ajouter un nouveau professeur</a>
-                
-            <h2 class=" text-center text-white-50 bg-dark mt-4">liste des professeurs de la 6éme A</h2>
-
-        <div class="row">
-                
-    <!--Pour chaque col on affiche une ligne de la table produits de la BDD ecommerce-->
-            <?php
-
-            foreach ($affich as $prof){
-                $date = new DateTime($prof['date_naissance_prof']);
-            ?>
-                            
-            <div class="col-md-4">
-                            
-                <div class="card">
-
-                    <div class="p-3 border bg-light">
-                        <img src="<?= $prof['avatar_prof'] ?>" class="card-img-top img-fluid" alt="<?= $prof['nom_prof'] ?> < ?>" title="<?= $prof['nom_prof'] ?><?= $prof['prenom_prof'] ?>">
-                        <h4 class="card-title text-info text-center"><?= $prof['nom_prof'] ?><?= $prof['prenom_prof'] ?></h4>                 
-                    </div>
-                    <div class="card-body">
-
-                    <?php
-
-    //voir si l'enseignant est present ou absent
-                    if($prof['etat_prof'] == true){
-                    echo "L'enseignant est vacciné";
-
-                    }else{
-                    echo "L'enseignant n'est pas vacciné";
-                    }
-
-                 ?>
-            
-                        <div class="container-fluid  justify-content-center">
-
-                            <a href="coordonneProf.php?id_prof=<?= $prof['id_prof'] ?>" class="btn btn-primary">Coordonnées de l'enseignant</a>
-                            <a href="misJourProf.php?id_prof=<?= $prof['id_prof'] ?>" class="btn btn-secondary">Mettre à jour les coordonnées</a>
-                            <a href="suprimProf.php?id_prof=<?= $prof['id_prof'] ?>" class="btn btn-info">Supprimer l'enseignant</a>
-                        </div>
-
-                    </div>
-
-                 </div>
-            </div>
-                            <?php
-                        }
-
-                    ?>
-
-        </div>
-    </div>
-     
-        <?php
         }else{
             echo "<a href='' class='btn btn-info'>S'inscrire</a>";
             header("location :../index.php");
@@ -159,4 +98,5 @@ if(isset($_SESSION['email'])){
 </body>
 
 </html>
+
 

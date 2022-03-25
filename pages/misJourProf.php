@@ -158,7 +158,7 @@ if($baseDonnee1){
 
         
         <button type="submit"  class="btn btn-primary" name="btnConnexion">Mettre à jour les coordonnées </button>
-        <a href="accueil.php" class="btn btn-info">Annuler</a>
+        <a href="prof.php" class="btn btn-info">Annuler</a>
 
     </form>
 

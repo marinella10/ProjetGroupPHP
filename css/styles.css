@@ -27,7 +27,7 @@ body, html {
     background: #50c1ee;
     border-radius: 4px;
     cursor: pointer;
-    color:white;
+    color:rgb(8, 3, 49);
   }
   
   input[type=email]:focus, input[type=password]:focus {
@@ -38,7 +38,7 @@ body, html {
   /* Définir un style pour le bouton d'envoi */
   .btn {
     background-color: #11bebe;
-    color: white;
+    color: rgb(203, 198, 216);
     padding: 16px 20px;
     border: none;
     cursor: pointer;

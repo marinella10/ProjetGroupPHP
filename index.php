@@ -39,9 +39,9 @@ session_start();
 
 
 <?php
-
+//faire le  crud de la connexion
 //le click pour la connexion (isset : varaible déclaré et differente de null) 
-    //on utilise la variable HTTP POS
+    //
 
  if(isset($_POST["btnConnect"])){
         
@@ -53,12 +53,14 @@ session_start();
 function connexion(){
 
 //connexion PDO  
+//declarer les variable de phpmyadmin
    $user = "root";
    $pass = "";
    $dbname = "basegroup";
    $host = "localhost";
-
-//faire le test d'erreur
+//test d'erreur, soit on de connecte, si non , on retourne au bloc catch
+//Instance de la classe PDO (Php Data Object)
+//"double deux-points" (::), fournit un moyen d'accéder aux membres static ou constant, ainsi qu'aux propriétés ou méthodes surchargées d'une classe.
             try{
                 $baseDonnee1 = new PDO("mysql:host=localhost;dbname=basegroup;charset=UTF8", $user, $pass);
                 
@@ -66,13 +68,17 @@ function connexion(){
               
                 $baseDonnee1->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 echo "<h4 class='container alert alert-info text-center'>Connexion à PDO MySQL</h4>";
-
+//catch (PDOException $e) Représente une erreur émise par PDO
             } catch (PDOException $e) {
                 print "ERREUR !: " . $e->getMessage() . "<br>";
                 die();
             }
 
     //hydrater les champs
+    //Cette fonction retourne une chaîne de caractères avec ces modifications
+    //faille xss = ON HYDRATE LES DONNÉES = Sanitize
+        //trim — Supprime les espaces (ou d'autres caractères) en début et fin de chaîne
+        //htmlspecialchars — Convertit les caractères spéciaux en entités HTML :: 
     $emailUser = trim(htmlspecialchars($_POST['email']));
     $passwordUser = trim(htmlspecialchars($_POST['password']));
 

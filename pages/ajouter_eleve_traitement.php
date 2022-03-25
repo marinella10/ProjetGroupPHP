@@ -1,3 +1,4 @@
+
 <?php  session_start(); ?>
 
 <!doctype html>
@@ -40,12 +41,7 @@ if(isset($_POST['btn-deconnexion'])){
     deconnexion();
 
 }
-
 ?>
-
-
-
-
 <?php
 
 // Verifier l'existance avec isset de ma superglobale $_FILES-->

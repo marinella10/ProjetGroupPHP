@@ -106,7 +106,7 @@ try {
 
                                     <div class="container">
 
-                                        <a href="accueil.php" class="btn btn-outline-primary btn-lg mb-2">Retour sur la liste des enseignants </a> 
+                                        <a href="prof.php" class="btn btn-outline-primary btn-lg mb-2">Retour sur la liste des enseignants </a> 
                                       
                                     </div>  
                                     

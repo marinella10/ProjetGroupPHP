@@ -28,6 +28,7 @@ if(isset($_SESSION['email'])){
 </head>
 
 <body>
+
     <!--navbar sur toute les pages-->
 <header>
         <?php
@@ -44,7 +45,8 @@ if(isset($_SESSION['email'])){
         </form>
         
     </div>
-    <h4 class='container alert alert-info text-center mt-5'>Bienvenue sur la page Eléves</h4>
+    <h4 class='container alert alert-info text-center mt-5'>Bienvenue sur la page Enseignants</h4>
+
     <?php
     function deconnexion(){
         
@@ -58,13 +60,14 @@ if(isset($_SESSION['email'])){
         deconnexion();
     }
 
-    //Connexion a la base de donnée base1 via PDO
+    //Connexion a la base de donnée basegroup via PDO
 
      //Les variable de phpmyadmin
         $user = "root";
         $pass = "";
 
     //faire le test d'erreur
+    //PDO::__construct — Crée une instance PDO qui représente une connexion à la base
         try{
              $baseDonnee1 = new PDO('mysql:host=localhost;dbname=basegroup;charset=UTF8', $user, $pass);
                 
@@ -83,7 +86,7 @@ if(isset($_SESSION['email'])){
         if($baseDonnee1){
 
      //Requète SQL de selection des produits (de tout les produits)
-             $sql = "SELECT * FROM eleves";
+             $sql = "SELECT * FROM professeurs";
     // accèder à la methode query() grace à sql
                
             $affich = $baseDonnee1->query($sql);
@@ -93,17 +96,17 @@ if(isset($_SESSION['email'])){
     <!--container pour les produit-->
     <div class="container">
 
-            <a href="ajouter_eleve.php" class="mt-3 btn btn-info">Ajouter un nouvel eléve</a>
+            <a href="ajoutProf.php" class="mt-3 btn btn-info">Ajouter un nouveau professeur</a>
                 
-            <h2 class=" text-center text-white-50 bg-dark mt-4">liste des eléves de la 6éme A</h2>
+            <h2 class=" text-center text-white-50 bg-dark mt-4">liste des professeurs de la 6éme A</h2>
 
         <div class="row">
                 
     <!--Pour chaque col on affiche une ligne de la table produits de la BDD ecommerce-->
             <?php
 
-            foreach ($affich as $eleve){
-              
+            foreach ($affich as $prof){
+                $date = new DateTime($prof['date_naissance_prof']);
             ?>
                             
             <div class="col-md-4">
@@ -111,30 +114,28 @@ if(isset($_SESSION['email'])){
                 <div class="card">
 
                     <div class="p-3 border bg-light">
-                        <img src="<?= $eleve['avatar_eleve'] ?>" class="card-img-top img-fluid" alt="<?= $eleve['nom_eleve'] ?> " title="<?= $eleve['nom_eleve'] ?>  <?= $eleve['prenom_eleve'] ?>">
-                        <h4 class="card-title text-info text-center"><?= $eleve['nom_eleve'] ?>  <?= $eleve['prenom_eleve'] ?></h4>                 
+                        <img src="<?= $prof['avatar_prof'] ?>" class="card-img-top img-fluid" alt="<?= $prof['nom_prof'] ?> < ?>" title="<?= $prof['nom_prof'] ?><?= $prof['prenom_prof'] ?>">
+                        <h4 class="card-title text-info text-center"><?= $prof['nom_prof'] ?><?= $prof['prenom_prof'] ?></h4>                 
                     </div>
                     <div class="card-body">
 
                     <?php
 
     //voir si l'enseignant est present ou absent
-                    if($eleve['absence_eleve'] == true){
-                    echo "L'éleve est present";
+                    if($prof['etat_prof'] == true){
+                    echo "L'enseignant est vacciné";
 
                     }else{
-                    echo "L'éleve est absent";
+                    echo "L'enseignant n'est pas vacciné";
                     }
 
                  ?>
             
                         <div class="container-fluid  justify-content-center">
 
-
-                            <a href="eleve_detail.php?id_student=<?= $eleve['id_Student'] ?>" class="btn btn-primary">Coordonnées de l'éleve</a>
-                            <a href="editer_eleve.php?id_student=<?= $eleve['id_Student'] ?>" class="btn btn-secondary">Mettre à jour les coordonnées</a>
-                            <a href="supprimer_eleve.php?id_student=<?= $eleve['id_Student'] ?>" class="btn btn-info">Supprimer l'éleve</a>
-
+                            <a href="coordonneProf.php?id_prof=<?= $prof['id_prof'] ?>" class="btn btn-primary">Coordonnées de l'enseignant</a>
+                            <a href="misJourProf.php?id_prof=<?= $prof['id_prof'] ?>" class="btn btn-secondary">Mettre à jour les coordonnées</a>
+                            <a href="suprimProf.php?id_prof=<?= $prof['id_prof'] ?>" class="btn btn-info">Supprimer l'enseignant</a>
                         </div>
 
                     </div>
@@ -148,9 +149,10 @@ if(isset($_SESSION['email'])){
 
         </div>
     </div>
+
     <div class=container>
         
-        <a class="btn btn-info" href="prof.php">Aller sur la page Enseignants</a>
+        <a class="btn btn-info" href="eleve.php">Aller sur la page Eléves</a>
         <a class="btn btn-secondary" href="administrateurs.php">Aller sur la page Administrateurs</a>
         <a class="btn btn-primary" href="accueil.php">Retour à la page d'accueil</a>
 
@@ -158,7 +160,7 @@ if(isset($_SESSION['email'])){
      
         <?php
         }else{
-    
+           
             header("location :../index.php");
         }
         ?>
